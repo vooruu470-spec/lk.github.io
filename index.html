@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tarif Mobil Jenazah </title>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Tarif Mobil Jenazah</title>
+
+
+<!-- ==============================
+     LEAFLET MAP
+================================ -->
 
 <link
-rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 />
 
+
 <style>
+
+/* =================================
+   RESET
+================================= */
 
 *{
     box-sizing:border-box;
@@ -19,260 +34,680 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     padding:0;
 }
 
+
+/* =================================
+   BODY
+================================= */
+
 body{
-    font-family:Arial,Helvetica,sans-serif;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     background:#f4f5f7;
+
     color:#222;
+
 }
 
+
+/* =================================
+   HEADER
+================================= */
+
 .header{
-    background:linear-gradient(135deg,#a90000,#d40000);
+
+    background:
+        linear-gradient(
+            135deg,
+            #a90000,
+            #d40000
+        );
+
     color:white;
-    padding:24px 18px;
+
+    padding:25px 18px;
+
     text-align:center;
+
 }
 
 .header h1{
-    font-size:23px;
+
+    font-size:24px;
+
     margin-bottom:6px;
+
 }
 
 .header p{
+
     font-size:13px;
+
     opacity:.9;
+
 }
+
+
+/* =================================
+   CONTAINER
+================================= */
 
 .container{
+
     max-width:900px;
+
     margin:auto;
+
     padding:15px;
+
 }
+
+
+/* =================================
+   CARD
+================================= */
 
 .card{
+
     background:white;
+
     border-radius:16px;
+
     padding:18px;
+
     margin-bottom:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.07);
+
+    box-shadow:
+        0 5px 20px
+        rgba(
+            0,
+            0,
+            0,
+            .07
+        );
+
 }
+
+
+/* =================================
+   JUDUL SECTION
+================================= */
+
+.section-title{
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    margin-bottom:14px;
+
+}
+
+
+/* =================================
+   KELAS
+================================= */
+
+.kelas-container{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            1fr
+        );
+
+    gap:10px;
+
+}
+
+
+.kelas{
+
+    border:
+        2px solid #ddd;
+
+    border-radius:12px;
+
+    padding:15px 10px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    background:white;
+
+}
+
+
+.kelas:hover{
+
+    border-color:
+        #c00000;
+
+}
+
+
+.kelas.active{
+
+    border-color:
+        #c00000;
+
+    background:
+        #fff1f1;
+
+}
+
+
+.kelas .icon{
+
+    font-size:25px;
+
+    margin-bottom:8px;
+
+}
+
+
+.kelas .nama{
+
+    font-weight:bold;
+
+    font-size:14px;
+
+}
+
+
+.kelas .harga{
+
+    margin-top:5px;
+
+    color:#c00000;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+}
+
+
+/* =================================
+   FORM
+================================= */
 
 .form-group{
+
     margin-bottom:18px;
+
 }
+
 
 label{
+
     display:block;
+
     font-weight:bold;
+
     font-size:14px;
+
     margin-bottom:8px;
+
 }
+
 
 .search-box{
+
     display:flex;
+
     gap:8px;
+
 }
+
 
 input{
+
     width:100%;
+
     flex:1;
+
     padding:13px;
-    border:1px solid #ddd;
+
+    border:
+        1px solid #ddd;
+
     border-radius:10px;
+
     font-size:14px;
+
     outline:none;
+
 }
+
 
 input:focus{
-    border-color:#c00000;
+
+    border-color:
+        #c00000;
+
 }
+
+
+/* =================================
+   BUTTON
+================================= */
 
 button{
+
     border:none;
+
     border-radius:10px;
-    padding:12px 15px;
+
+    padding:
+        12px 15px;
+
     font-weight:bold;
+
     cursor:pointer;
+
 }
+
 
 .btn-search{
+
     background:#eeeeee;
+
     color:#333;
+
 }
+
 
 .btn-gps{
+
     width:100%;
+
     background:#222;
+
     color:white;
+
     margin-top:8px;
+
 }
+
 
 .btn-hitung{
+
     width:100%;
+
     background:#b40000;
+
     color:white;
+
     font-size:16px;
+
     padding:15px;
+
 }
+
 
 .btn-wa{
+
     width:100%;
+
     background:#25D366;
+
     color:white;
+
     font-size:15px;
+
     padding:15px;
+
     margin-top:12px;
+
 }
 
-.btn-wa:active,
-.btn-hitung:active{
-    transform:scale(.98);
+
+.btn-hitung:active,
+.btn-wa:active{
+
+    transform:
+        scale(.98);
+
 }
+
+
+/* =================================
+   SEARCH RESULT
+================================= */
 
 .suggestions{
+
     margin-top:5px;
+
     border-radius:10px;
+
     overflow:hidden;
-    border:1px solid #ddd;
+
+    border:
+        1px solid #ddd;
+
 }
+
 
 .suggestion{
+
     padding:12px;
+
     background:white;
-    border-bottom:1px solid #eee;
+
+    border-bottom:
+        1px solid #eee;
+
     font-size:13px;
+
     cursor:pointer;
+
 }
+
 
 .suggestion:last-child{
+
     border-bottom:none;
+
 }
+
 
 .suggestion:hover{
+
     background:#f5f5f5;
+
 }
+
+
+/* =================================
+   MAP
+================================= */
 
 #map{
+
     width:100%;
+
     height:430px;
+
     border-radius:13px;
+
     overflow:hidden;
+
 }
+
 
 .map-info{
+
     text-align:center;
+
     color:#777;
+
     font-size:12px;
+
     margin-top:10px;
+
 }
+
+
+/* =================================
+   HASIL
+================================= */
 
 .hasil{
+
     display:none;
+
 }
+
 
 .hasil-title{
+
     font-size:18px;
+
     font-weight:bold;
+
     margin-bottom:15px;
+
 }
+
 
 .row{
+
     display:flex;
-    justify-content:space-between;
+
+    justify-content:
+        space-between;
+
     gap:15px;
+
     padding:11px 0;
-    border-bottom:1px solid #eee;
+
+    border-bottom:
+        1px solid #eee;
+
     font-size:14px;
+
 }
+
 
 .row strong{
+
     text-align:right;
+
 }
+
+
+/* =================================
+   STATUS
+================================= */
 
 .status{
+
     padding:14px;
+
     border-radius:12px;
+
     margin-top:15px;
+
     text-align:center;
+
     font-weight:bold;
+
 }
+
 
 .gratis{
+
     background:#e5f8eb;
+
     color:#16803a;
+
 }
+
 
 .berbayar{
+
     background:#fff1f1;
+
     color:#b00000;
+
 }
+
+
+/* =================================
+   TOTAL
+================================= */
 
 .total{
+
     margin-top:15px;
+
     padding:20px;
+
     background:#fff1f1;
+
     border-radius:13px;
+
     text-align:center;
+
 }
+
 
 .total small{
+
     display:block;
+
     color:#777;
+
     margin-bottom:5px;
+
 }
+
 
 .total strong{
+
     color:#b40000;
-    font-size:29px;
+
+    font-size:30px;
+
 }
+
+
+/* =================================
+   ERROR
+================================= */
 
 .error{
+
     display:none;
+
     background:#ffe4e4;
+
     color:#a00000;
+
     padding:12px;
+
     border-radius:10px;
+
     margin-top:12px;
+
     font-size:13px;
+
 }
+
+
+/* =================================
+   FOOTER
+================================= */
 
 .footer{
+
     text-align:center;
+
     color:#888;
+
     font-size:12px;
+
     padding:20px;
+
 }
 
-@media(max-width:600px){
+
+/* =================================
+   MOBILE
+================================= */
+
+@media(
+    max-width:600px
+){
+
+    .kelas-container{
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .kelas{
+
+        display:flex;
+
+        align-items:center;
+
+        gap:12px;
+
+        text-align:left;
+
+    }
+
+
+    .kelas .icon{
+
+        margin:0;
+
+    }
+
 
     #map{
+
         height:350px;
+
     }
+
 
     .header h1{
+
         font-size:20px;
+
     }
+
 
     .total strong{
+
         font-size:25px;
+
     }
+
 
     .row{
-        flex-direction:column;
+
+        flex-direction:
+            column;
+
         gap:4px;
+
     }
 
+
     .row strong{
+
         text-align:left;
+
     }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
+<!-- =================================
+     HEADER
+================================= -->
 
 <div class="header">
 
@@ -287,23 +722,128 @@ button{
 </div>
 
 
+
 <div class="container">
 
 
-<!-- ==============================
-     FORM LOKASI
-================================ -->
+<!-- =================================
+     PILIH KELAS
+================================= -->
+
+<div class="card">
+
+    <div class="section-title">
+
+        Pilih Kelas Layanan
+
+    </div>
+
+
+    <div class="kelas-container">
+
+
+        <!-- UMUM -->
+
+        <div
+            class="kelas active"
+            id="kelasUmum"
+            onclick="pilihKelas('umum')"
+        >
+
+            <div class="icon">
+                🏆
+            </div>
+
+            <div>
+
+                <div class="nama">
+                    Kelas Umum
+                </div>
+
+                <div class="harga">
+                    Rp15.000 / KM
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENENGAH -->
+
+        <div
+            class="kelas"
+            id="kelasMenengah"
+            onclick="pilihKelas('menengah')"
+        >
+
+            <div class="icon">
+                ⭐
+            </div>
+
+            <div>
+
+                <div class="nama">
+                    Kelas Menengah
+                </div>
+
+                <div class="harga">
+                    Rp13.000 / KM
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENENGAH KE BAWAH -->
+
+        <div
+            class="kelas"
+            id="kelasBawah"
+            onclick="pilihKelas('bawah')"
+        >
+
+            <div class="icon">
+                🟢
+            </div>
+
+            <div>
+
+                <div class="nama">
+                    Menengah ke Bawah
+                </div>
+
+                <div class="harga">
+                    Rp10.000 / KM
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================
+     LOKASI
+================================= -->
 
 <div class="card">
 
 
-    <!-- LOKASI AWAL -->
+    <!-- ASAL -->
 
     <div class="form-group">
 
         <label>
             📍 Lokasi Awal
         </label>
+
 
         <div class="search-box">
 
@@ -312,6 +852,7 @@ button{
                 id="asal"
                 placeholder="Cari lokasi awal..."
             >
+
 
             <button
                 class="btn-search"
@@ -322,28 +863,34 @@ button{
 
         </div>
 
+
         <div
             id="suggestionsAsal"
             class="suggestions"
         ></div>
 
+
         <button
             class="btn-gps"
             onclick="gunakanGPS('asal')"
         >
+
             📍 Gunakan Lokasi Saya
+
         </button>
 
     </div>
 
 
-    <!-- LOKASI TUJUAN -->
+
+    <!-- TUJUAN -->
 
     <div class="form-group">
 
         <label>
             🎯 Lokasi Tujuan
         </label>
+
 
         <div class="search-box">
 
@@ -352,6 +899,7 @@ button{
                 id="tujuan"
                 placeholder="Cari lokasi tujuan..."
             >
+
 
             <button
                 class="btn-search"
@@ -362,26 +910,35 @@ button{
 
         </div>
 
+
         <div
             id="suggestionsTujuan"
             class="suggestions"
         ></div>
 
+
         <button
             class="btn-gps"
             onclick="gunakanGPS('tujuan')"
         >
+
             📍 Gunakan Lokasi Saya
+
         </button>
 
     </div>
 
 
+
+    <!-- HITUNG -->
+
     <button
         class="btn-hitung"
         onclick="hitungTarif()"
     >
+
         HITUNG TARIF
+
     </button>
 
 
@@ -393,13 +950,15 @@ button{
 </div>
 
 
-<!-- ==============================
+
+<!-- =================================
      MAP
-================================ -->
+================================= -->
 
 <div class="card">
 
     <div id="map"></div>
+
 
     <div class="map-info">
 
@@ -411,18 +970,37 @@ button{
 </div>
 
 
-<!-- ==============================
+
+<!-- =================================
      HASIL
-================================ -->
+================================= -->
 
 <div
     class="card hasil"
     id="hasil"
 >
 
+
     <div class="hasil-title">
+
         💰 Rincian Perjalanan
+
     </div>
+
+
+
+    <div class="row">
+
+        <span>
+            Kelas Layanan
+        </span>
+
+        <strong id="hasilKelas">
+            -
+        </strong>
+
+    </div>
+
 
 
     <div class="row">
@@ -438,6 +1016,7 @@ button{
     </div>
 
 
+
     <div class="row">
 
         <span>
@@ -449,6 +1028,7 @@ button{
         </strong>
 
     </div>
+
 
 
     <div class="row">
@@ -464,6 +1044,7 @@ button{
     </div>
 
 
+
     <div class="row">
 
         <span>
@@ -477,10 +1058,12 @@ button{
     </div>
 
 
+
     <div
         id="status"
         class="status"
     ></div>
+
 
 
     <div class="total">
@@ -496,6 +1079,7 @@ button{
     </div>
 
 
+
     <!-- WHATSAPP -->
 
     <button
@@ -503,7 +1087,9 @@ button{
         class="btn-wa"
         onclick="kirimWhatsApp()"
     >
+
         📱 KIRIM RINCIAN VIA WHATSAPP
+
     </button>
 
 
@@ -511,6 +1097,7 @@ button{
 
 
 </div>
+
 
 
 <div class="footer">
@@ -521,193 +1108,383 @@ button{
 
 
 
+<!-- =================================
+     LEAFLET
+================================= -->
+
 <script
 src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
 
+
 <script>
 
-/* =====================================
+
+/* =================================
    PENGATURAN
-===================================== */
+================================= */
 
 
 /*
-    GANTI NOMOR INI DENGAN NOMOR
-    WHATSAPP YANG AKAN MENERIMA PESAN.
+    GANTI NOMOR WHATSAPP DI BAWAH.
 
-    Format:
-    628xxxxxxxxxx
+    Contoh:
 
-    JANGAN pakai:
-    +62
-    08
-    spasi
-    tanda -
+    081234567890
+
+    menjadi:
+
+    6281234567890
 */
 
-const NOMOR_WA = "6285770590938";
+const NOMOR_WA =
+    "6285770590938";
 
 
 /*
-    TARIF PER KM
+    TARIF
 */
 
-const TARIF_PER_KM = 15000;
+const TARIF = {
 
+    umum:
+        15000,
 
-/* =====================================
-   BATAS DKI
-===================================== */
+    menengah:
+        13000,
 
-const DKI = {
-
-    minLat:-6.380,
-
-    maxLat:-6.080,
-
-    minLon:106.680,
-
-    maxLon:107.050
+    bawah:
+        10000
 
 };
 
 
-/* =====================================
+/*
+    KELAS DEFAULT
+*/
+
+let kelasDipilih =
+    "umum";
+
+
+
+/* =================================
+   BATAS DKI
+================================= */
+
+const DKI = {
+
+    minLat:
+        -6.380,
+
+    maxLat:
+        -6.080,
+
+    minLon:
+        106.680,
+
+    maxLon:
+        107.050
+
+};
+
+
+
+/* =================================
    MAP
-===================================== */
+================================= */
 
 const map =
-L.map('map').setView(
-    [-6.200,106.830],
-    11
-);
+    L.map(
+        "map"
+    ).setView(
+        [
+            -6.200,
+            106.830
+        ],
+        11
+    );
 
 
 L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     {
+
         attribution:
-        '&copy; OpenStreetMap contributors'
+            "&copy; OpenStreetMap contributors"
+
     }
 ).addTo(map);
 
 
-/* =====================================
+
+/* =================================
    VARIABLE
-===================================== */
+================================= */
 
-let markerAsal = null;
+let markerAsal =
+    null;
 
-let markerTujuan = null;
+let markerTujuan =
+    null;
 
-let lokasiAsal = null;
+let lokasiAsal =
+    null;
 
-let lokasiTujuan = null;
+let lokasiTujuan =
+    null;
 
-let routeLine = null;
+let routeLine =
+    null;
 
 
 
-/* =====================================
+/* =================================
+   PILIH KELAS
+================================= */
+
+function pilihKelas(
+    kelas
+){
+
+    kelasDipilih =
+        kelas;
+
+
+    document
+        .querySelectorAll(
+            ".kelas"
+        )
+        .forEach(
+            item => {
+
+                item.classList
+                    .remove(
+                        "active"
+                    );
+
+            }
+        );
+
+
+    if(
+        kelas ===
+        "umum"
+    ){
+
+        document
+            .getElementById(
+                "kelasUmum"
+            )
+            .classList
+            .add(
+                "active"
+            );
+
+    }
+
+
+    if(
+        kelas ===
+        "menengah"
+    ){
+
+        document
+            .getElementById(
+                "kelasMenengah"
+            )
+            .classList
+            .add(
+                "active"
+            );
+
+    }
+
+
+    if(
+        kelas ===
+        "bawah"
+    ){
+
+        document
+            .getElementById(
+                "kelasBawah"
+            )
+            .classList
+            .add(
+                "active"
+            );
+
+    }
+
+}
+
+
+
+/* =================================
+   NAMA KELAS
+================================= */
+
+function namaKelas(){
+
+    if(
+        kelasDipilih ===
+        "umum"
+    ){
+
+        return "Kelas Umum";
+
+    }
+
+
+    if(
+        kelasDipilih ===
+        "menengah"
+    ){
+
+        return "Kelas Menengah";
+
+    }
+
+
+    return "Kelas Menengah ke Bawah";
+
+}
+
+
+
+/* =================================
    CARI LOKASI
-===================================== */
+================================= */
 
-async function cariLokasi(tipe){
+async function cariLokasi(
+    tipe
+){
 
     const input =
-    document.getElementById(tipe);
+        document.getElementById(
+            tipe
+        );
+
 
     const query =
-    input.value.trim();
+        input.value.trim();
 
 
-    if(!query){
+    if(
+        !query
+    ){
 
         tampilkanError(
             "Masukkan lokasi terlebih dahulu."
         );
 
         return;
+
     }
 
 
     try{
 
         const url =
-        "https://nominatim.openstreetmap.org/search?" +
-        "format=json" +
-        "&limit=5" +
-        "&countrycodes=id" +
-        "&q=" +
-        encodeURIComponent(query);
+            "https://nominatim.openstreetmap.org/search?" +
+
+            "format=json" +
+
+            "&limit=5" +
+
+            "&countrycodes=id" +
+
+            "&q=" +
+
+            encodeURIComponent(
+                query
+            );
 
 
         const response =
-        await fetch(url);
+            await fetch(
+                url
+            );
 
 
         const data =
-        await response.json();
+            await response.json();
 
 
         const box =
-        document.getElementById(
-            tipe === "asal"
-            ? "suggestionsAsal"
-            : "suggestionsTujuan"
-        );
+            document.getElementById(
+
+                tipe === "asal"
+
+                ? "suggestionsAsal"
+
+                : "suggestionsTujuan"
+
+            );
 
 
-        box.innerHTML = "";
+        box.innerHTML =
+            "";
 
 
-        if(!data.length){
+        if(
+            !data.length
+        ){
 
             box.innerHTML =
-            `<div class="suggestion">
-                Lokasi tidak ditemukan.
-            </div>`;
+
+                `<div class="suggestion">
+                    Lokasi tidak ditemukan.
+                </div>`;
 
             return;
+
         }
 
 
-        data.forEach(item => {
+        data.forEach(
+            item => {
 
-            const div =
-            document.createElement("div");
-
-
-            div.className =
-            "suggestion";
-
-
-            div.innerText =
-            item.display_name;
+                const div =
+                    document.createElement(
+                        "div"
+                    );
 
 
-            div.onclick =
-            function(){
+                div.className =
+                    "suggestion";
 
-                pilihLokasi(
-                    tipe,
-                    item
+
+                div.innerText =
+                    item.display_name;
+
+
+                div.onclick =
+                    function(){
+
+                        pilihLokasi(
+                            tipe,
+                            item
+                        );
+
+                    };
+
+
+                box.appendChild(
+                    div
                 );
 
-            };
+            }
+        );
 
 
-            box.appendChild(div);
-
-        });
-
-
-    }catch(error){
+    }
+    catch(error){
 
         tampilkanError(
-            "Gagal mencari lokasi."
+            "Gagal mencari lokasi. Periksa koneksi internet."
         );
 
     }
@@ -715,9 +1492,10 @@ async function cariLokasi(tipe){
 }
 
 
-/* =====================================
+
+/* =================================
    PILIH LOKASI
-===================================== */
+================================= */
 
 function pilihLokasi(
     tipe,
@@ -725,45 +1503,68 @@ function pilihLokasi(
 ){
 
     const lat =
-    parseFloat(item.lat);
+        parseFloat(
+            item.lat
+        );
+
 
     const lon =
-    parseFloat(item.lon);
+        parseFloat(
+            item.lon
+        );
 
 
     const lokasi = {
 
-        lat:lat,
+        lat:
+            lat,
 
-        lon:lon,
+        lon:
+            lon,
 
-        address:item.display_name
+        address:
+            item.display_name
 
     };
 
 
-    if(tipe === "asal"){
+    if(
+        tipe ===
+        "asal"
+    ){
 
         lokasiAsal =
-        lokasi;
+            lokasi;
 
-    }else{
+    }
+    else{
 
         lokasiTujuan =
-        lokasi;
+            lokasi;
 
     }
 
 
-    document.getElementById(tipe).value =
-    item.display_name;
+    document
+        .getElementById(
+            tipe
+        )
+        .value =
+            item.display_name;
 
 
-    document.getElementById(
-        tipe === "asal"
-        ? "suggestionsAsal"
-        : "suggestionsTujuan"
-    ).innerHTML = "";
+    document
+        .getElementById(
+
+            tipe === "asal"
+
+            ? "suggestionsAsal"
+
+            : "suggestionsTujuan"
+
+        )
+        .innerHTML =
+            "";
 
 
     pasangMarker(
@@ -773,25 +1574,34 @@ function pilihLokasi(
 
 
     map.setView(
-        [lat,lon],
+        [
+            lat,
+            lon
+        ],
         14
     );
 
 }
 
 
-/* =====================================
+
+/* =================================
    MARKER
-===================================== */
+================================= */
 
 function pasangMarker(
     tipe,
     lokasi
 ){
 
-    if(tipe === "asal"){
+    if(
+        tipe ===
+        "asal"
+    ){
 
-        if(markerAsal){
+        if(
+            markerAsal
+        ){
 
             map.removeLayer(
                 markerAsal
@@ -801,18 +1611,25 @@ function pasangMarker(
 
 
         markerAsal =
-        L.marker([
-            lokasi.lat,
-            lokasi.lon
-        ])
-        .addTo(map)
-        .bindPopup(
-            "📍 Lokasi Awal"
-        );
+            L.marker(
+                [
+                    lokasi.lat,
+                    lokasi.lon
+                ]
+            )
+            .addTo(
+                map
+            )
+            .bindPopup(
+                "📍 Lokasi Awal"
+            );
 
-    }else{
+    }
+    else{
 
-        if(markerTujuan){
+        if(
+            markerTujuan
+        ){
 
             map.removeLayer(
                 markerTujuan
@@ -822,67 +1639,87 @@ function pasangMarker(
 
 
         markerTujuan =
-        L.marker([
-            lokasi.lat,
-            lokasi.lon
-        ])
-        .addTo(map)
-        .bindPopup(
-            "🎯 Lokasi Tujuan"
-        );
+            L.marker(
+                [
+                    lokasi.lat,
+                    lokasi.lon
+                ]
+            )
+            .addTo(
+                map
+            )
+            .bindPopup(
+                "🎯 Lokasi Tujuan"
+            );
 
     }
 
 }
 
 
-/* =====================================
+
+/* =================================
    GPS
-===================================== */
+================================= */
 
-function gunakanGPS(tipe){
+function gunakanGPS(
+    tipe
+){
 
-    if(!navigator.geolocation){
+    if(
+        !navigator.geolocation
+    ){
 
         tampilkanError(
             "Browser tidak mendukung GPS."
         );
 
         return;
+
     }
 
 
     navigator.geolocation.getCurrentPosition(
 
-        async function(position){
+        async function(
+            position
+        ){
 
             const lat =
-            position.coords.latitude;
+                position.coords.latitude;
+
 
             const lon =
-            position.coords.longitude;
+                position.coords.longitude;
 
 
             const lokasi = {
 
-                lat:lat,
+                lat:
+                    lat,
 
-                lon:lon,
+                lon:
+                    lon,
 
-                address:"Lokasi saya"
+                address:
+                    "Lokasi saya"
 
             };
 
 
-            if(tipe === "asal"){
+            if(
+                tipe ===
+                "asal"
+            ){
 
                 lokasiAsal =
-                lokasi;
+                    lokasi;
 
-            }else{
+            }
+            else{
 
                 lokasiTujuan =
-                lokasi;
+                    lokasi;
 
             }
 
@@ -894,7 +1731,10 @@ function gunakanGPS(tipe){
 
 
             map.setView(
-                [lat,lon],
+                [
+                    lat,
+                    lon
+                ],
                 15
             );
 
@@ -906,6 +1746,7 @@ function gunakanGPS(tipe){
             );
 
         },
+
 
         function(){
 
@@ -920,9 +1761,10 @@ function gunakanGPS(tipe){
 }
 
 
-/* =====================================
+
+/* =================================
    REVERSE GEOCODE
-===================================== */
+================================= */
 
 async function reverseGeocode(
     lat,
@@ -933,42 +1775,59 @@ async function reverseGeocode(
     try{
 
         const url =
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`;
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`;
 
 
         const response =
-        await fetch(url);
+            await fetch(
+                url
+            );
 
 
         const data =
-        await response.json();
+            await response.json();
 
 
         const alamat =
-        data.display_name ||
-        "Lokasi dipilih";
+            data.display_name ||
+            "Lokasi dipilih";
 
 
-        document.getElementById(tipe).value =
-        alamat;
+        document
+            .getElementById(
+                tipe
+            )
+            .value =
+                alamat;
 
 
-        if(tipe === "asal" && lokasiAsal){
+        if(
+            tipe ===
+            "asal"
+            &&
+            lokasiAsal
+        ){
 
             lokasiAsal.address =
-            alamat;
+                alamat;
 
         }
 
 
-        if(tipe === "tujuan" && lokasiTujuan){
+        if(
+            tipe ===
+            "tujuan"
+            &&
+            lokasiTujuan
+        ){
 
             lokasiTujuan.address =
-            alamat;
+                alamat;
 
         }
 
-    }catch(error){
+    }
+    catch(error){
 
         console.log(
             "Reverse geocode gagal"
@@ -979,9 +1838,10 @@ async function reverseGeocode(
 }
 
 
-/* =====================================
+
+/* =================================
    CEK DKI
-===================================== */
+================================= */
 
 function beradaDiDKI(
     lat,
@@ -990,22 +1850,33 @@ function beradaDiDKI(
 
     return (
 
-        lat >= DKI.minLat &&
+        lat >=
+            DKI.minLat
 
-        lat <= DKI.maxLat &&
+        &&
 
-        lon >= DKI.minLon &&
+        lat <=
+            DKI.maxLat
 
-        lon <= DKI.maxLon
+        &&
+
+        lon >=
+            DKI.minLon
+
+        &&
+
+        lon <=
+            DKI.maxLon
 
     );
 
 }
 
 
-/* =====================================
+
+/* =================================
    HITUNG TARIF
-===================================== */
+================================= */
 
 async function hitungTarif(){
 
@@ -1022,114 +1893,168 @@ async function hitungTarif(){
         );
 
         return;
+
     }
 
 
     try{
 
         const url =
-        `https://router.project-osrm.org/route/v1/driving/` +
 
-        `${lokasiAsal.lon},${lokasiAsal.lat};` +
+            `https://router.project-osrm.org/route/v1/driving/`
 
-        `${lokasiTujuan.lon},${lokasiTujuan.lat}` +
+            +
 
-        `?overview=full&geometries=geojson`;
+            `${lokasiAsal.lon},${lokasiAsal.lat};`
+
+            +
+
+            `${lokasiTujuan.lon},${lokasiTujuan.lat}`
+
+            +
+
+            `?overview=full&geometries=geojson`;
 
 
         const response =
-        await fetch(url);
+            await fetch(
+                url
+            );
 
 
         const data =
-        await response.json();
+            await response.json();
 
 
         if(
-            data.code !== "Ok"
+            data.code !==
+            "Ok"
         ){
 
             throw new Error(
-                "Rute tidak ditemukan"
+                "Rute tidak ditemukan."
             );
 
         }
 
 
         const route =
-        data.routes[0];
+            data.routes[0];
 
+
+        /*
+            Jarak asli
+            dalam kilometer
+        */
 
         const jarak =
-        route.distance / 1000;
+            route.distance /
+            1000;
 
+
+        /*
+            Pembulatan tarif
+        */
 
         const jarakTarif =
-        Math.ceil(jarak);
+            Math.ceil(
+                jarak
+            );
 
 
-        /* =========================
-           CEK DKI
-        ========================= */
+        /*
+            Cek DKI
+        */
 
         const asalDKI =
-        beradaDiDKI(
-            lokasiAsal.lat,
-            lokasiAsal.lon
-        );
+            beradaDiDKI(
+                lokasiAsal.lat,
+                lokasiAsal.lon
+            );
 
 
         const tujuanDKI =
-        beradaDiDKI(
-            lokasiTujuan.lat,
-            lokasiTujuan.lon
-        );
+            beradaDiDKI(
+                lokasiTujuan.lat,
+                lokasiTujuan.lon
+            );
 
 
         const keduanyaDKI =
-        asalDKI &&
-        tujuanDKI;
+            asalDKI &&
+            tujuanDKI;
 
 
-        let total = 0;
-
-        let tarifText = "";
-
-        let statusText = "";
+        let total =
+            0;
 
 
-        if(keduanyaDKI){
+        let tarifText =
+            "";
 
-            total = 0;
 
-            tarifText =
-            "GRATIS";
+        let statusText =
+            "";
 
-            statusText =
-            "🟢 DALAM WILAYAH DKI JAKARTA — GRATIS";
 
-        }else{
+        /*
+            DKI -> DKI
+            GRATIS
+        */
+
+        if(
+            keduanyaDKI
+        ){
 
             total =
-            jarakTarif *
-            TARIF_PER_KM;
+                0;
 
 
             tarifText =
-            `${jarakTarif} KM `;
+                "GRATIS";
 
 
             statusText =
-            "🔴 PERJALANAN DI LUAR WILAYAH DKI";
+                "🟢 DALAM WILAYAH DKI JAKARTA — GRATIS";
 
         }
 
 
-        /* =========================
-           GAMBAR RUTE
-        ========================= */
+        /*
+            LUAR DKI
+        */
 
-        if(routeLine){
+        else{
+
+            const harga =
+                TARIF[
+                    kelasDipilih
+                ];
+
+
+            total =
+                jarakTarif *
+                harga;
+
+
+            tarifText =
+                `${jarakTarif} KM × ${formatRupiah(harga)}`;
+
+
+            statusText =
+                "🔴 PERJALANAN DI LUAR WILAYAH DKI";
+
+        }
+
+
+
+        /* ==========================
+           GAMBAR RUTE
+        ========================== */
+
+        if(
+            routeLine
+        ){
 
             map.removeLayer(
                 routeLine
@@ -1139,105 +2064,145 @@ async function hitungTarif(){
 
 
         const coordinates =
-        route.geometry.coordinates.map(
-            point => [
-                point[1],
-                point[0]
-            ]
-        );
+            route.geometry.coordinates
+            .map(
+                point => [
+                    point[1],
+                    point[0]
+                ]
+            );
 
 
         routeLine =
-        L.polyline(
-            coordinates,
-            {
-                weight:5
-            }
-        ).addTo(map);
+            L.polyline(
+                coordinates,
+                {
+                    weight:
+                        5
+                }
+            )
+            .addTo(
+                map
+            );
 
 
         map.fitBounds(
             routeLine.getBounds(),
             {
-                padding:[30,30]
+                padding:
+                    [30,30]
             }
         );
 
 
-        /* =========================
-           TAMPILKAN HASIL
-        ========================= */
 
-        document.getElementById(
-            "hasilAsal"
-        ).innerText =
-        lokasiAsal.address;
+        /* ==========================
+           HASIL
+        ========================== */
 
-
-        document.getElementById(
-            "hasilTujuan"
-        ).innerText =
-        lokasiTujuan.address;
+        document
+            .getElementById(
+                "hasilKelas"
+            )
+            .innerText =
+                namaKelas();
 
 
-        document.getElementById(
-            "hasilJarak"
-        ).innerText =
-        jarak.toFixed(1) +
-        " KM";
+        document
+            .getElementById(
+                "hasilAsal"
+            )
+            .innerText =
+                lokasiAsal.address;
 
 
-        document.getElementById(
-            "hasilTarif"
-        ).innerText =
-        tarifText;
+        document
+            .getElementById(
+                "hasilTujuan"
+            )
+            .innerText =
+                lokasiTujuan.address;
+
+
+        document
+            .getElementById(
+                "hasilJarak"
+            )
+            .innerText =
+                jarak.toFixed(1)
+                +
+                " KM";
+
+
+        document
+            .getElementById(
+                "hasilTarif"
+            )
+            .innerText =
+                tarifText;
 
 
         const status =
-        document.getElementById(
-            "status"
-        );
+            document.getElementById(
+                "status"
+            );
 
 
         status.innerText =
-        statusText;
+            statusText;
 
 
-        if(keduanyaDKI){
-
-            status.className =
-            "status gratis";
-
-        }else{
+        if(
+            keduanyaDKI
+        ){
 
             status.className =
-            "status berbayar";
+                "status gratis";
+
+        }
+        else{
+
+            status.className =
+                "status berbayar";
 
         }
 
 
-        document.getElementById(
-            "hasilTotal"
-        ).innerText =
-        formatRupiah(total);
+        document
+            .getElementById(
+                "hasilTotal"
+            )
+            .innerText =
+                formatRupiah(
+                    total
+                );
 
 
-        document.getElementById(
-            "hasil"
-        ).style.display =
-        "block";
+        document
+            .getElementById(
+                "hasil"
+            )
+            .style.display =
+                "block";
 
 
-        document.getElementById(
-            "hasil"
-        ).scrollIntoView({
-            behavior:"smooth"
-        });
+        document
+            .getElementById(
+                "hasil"
+            )
+            .scrollIntoView({
+                behavior:
+                    "smooth"
+            });
 
 
-    }catch(error){
+    }
+    catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         tampilkanError(
             "Gagal menghitung rute. Pastikan internet aktif."
@@ -1248,9 +2213,10 @@ async function hitungTarif(){
 }
 
 
-/* =====================================
+
+/* =================================
    WHATSAPP
-===================================== */
+================================= */
 
 function kirimWhatsApp(){
 
@@ -1264,44 +2230,66 @@ function kirimWhatsApp(){
         );
 
         return;
+
     }
 
 
-    const jarak =
-    document.getElementById(
-        "hasilJarak"
-    ).innerText;
-
-
-    const tarif =
-    document.getElementById(
-        "hasilTarif"
-    ).innerText;
-
-
-    const total =
-    document.getElementById(
-        "hasilTotal"
-    ).innerText;
-
-
-    const status =
-    document.getElementById(
-        "status"
-    ).innerText;
+    const kelas =
+        document
+            .getElementById(
+                "hasilKelas"
+            )
+            .innerText;
 
 
     const asal =
-    lokasiAsal.address;
+        lokasiAsal.address;
 
 
     const tujuan =
-    lokasiTujuan.address;
+        lokasiTujuan.address;
+
+
+    const jarak =
+        document
+            .getElementById(
+                "hasilJarak"
+            )
+            .innerText;
+
+
+    const tarif =
+        document
+            .getElementById(
+                "hasilTarif"
+            )
+            .innerText;
+
+
+    const total =
+        document
+            .getElementById(
+                "hasilTotal"
+            )
+            .innerText;
+
+
+    const status =
+        document
+            .getElementById(
+                "status"
+            )
+            .innerText;
 
 
     const pesan =
 
 `🚑 *RINCIAN MOBIL JENAZAH*
+
+━━━━━━━━━━━━━━━━━━
+
+🏷️ *Kelas Layanan*
+${kelas}
 
 📍 *Lokasi Awal*
 ${asal}
@@ -1318,19 +2306,26 @@ ${tarif}
 📌 *Status*
 ${status}
 
+━━━━━━━━━━━━━━━━━━
+
 💵 *TOTAL BIAYA*
 ${total}
+
+━━━━━━━━━━━━━━━━━━
 
 Terima kasih.`;
 
 
     const url =
-    "https://wa.me/" +
-    NOMOR_WA +
-    "?text=" +
-    encodeURIComponent(
-        pesan
-    );
+        "https://wa.me/"
+        +
+        NOMOR_WA
+        +
+        "?text="
+        +
+        encodeURIComponent(
+            pesan
+        );
 
 
     window.open(
@@ -1341,9 +2336,10 @@ Terima kasih.`;
 }
 
 
-/* =====================================
+
+/* =================================
    FORMAT RUPIAH
-===================================== */
+================================= */
 
 function formatRupiah(
     angka
@@ -1352,45 +2348,57 @@ function formatRupiah(
     return new Intl.NumberFormat(
         "id-ID",
         {
-            style:"currency",
-            currency:"IDR",
-            maximumFractionDigits:0
+
+            style:
+                "currency",
+
+            currency:
+                "IDR",
+
+            maximumFractionDigits:
+                0
+
         }
-    ).format(angka);
+    ).format(
+        angka
+    );
 
 }
 
 
-/* =====================================
+
+/* =================================
    ERROR
-===================================== */
+================================= */
 
 function tampilkanError(
     pesan
 ){
 
     const error =
-    document.getElementById(
-        "error"
-    );
+        document.getElementById(
+            "error"
+        );
 
 
     error.innerText =
-    pesan;
+        pesan;
 
 
     error.style.display =
-    "block";
+        "block";
 
 }
 
 
 function sembunyikanError(){
 
-    document.getElementById(
-        "error"
-    ).style.display =
-    "none";
+    document
+        .getElementById(
+            "error"
+        )
+        .style.display =
+            "none";
 
 }
 
